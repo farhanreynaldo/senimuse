@@ -48,3 +48,51 @@ get_artworks <- function(object_ids, fields = NULL) {
 
   dplyr::bind_rows(artworks_data$data)
 }
+
+
+#' Search for Artworks from the Art Institute of Chicago API
+#'
+#' Searches for artworks in the Art Institute of Chicago's collection based on a query string
+#' and returns artwork data for matching items.
+#'
+#' @param query A character string containing the search query. Cannot be NULL.
+#'   Spaces will automatically be converted to hyphens.
+#' @param fields An optional vector of field names (character) to return for each artwork.
+#'   If NULL (default), returns all available fields.
+#' @param size The maximum number of results to return. Defaults to 10.
+#'
+#' @return A tibble (data frame) where each row represents one artwork matching the search
+#'   criteria and columns contain the requested fields.
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#' # Search for artworks related to "sunflowers"
+#' search_artworks("sunflowers")
+#'
+#' # Search with specific fields to return
+#' search_artworks("monet", fields = c("title", "artist_display", "date_display"))
+#' 
+#' # Search with a larger result set
+#' search_artworks("landscape", size = 25)
+#' }
+search_artworks <- function(query, fields = NULL, size = 10) {
+  if(is.null(query)) {
+    stop("`query` cannot be null")
+  }
+
+  # Normalize the search query: trim whitespace and replace spaces with hyphens
+  query <- trimws(query)
+  query <- gsub(" +", "-", query)
+
+  req <- httr2::request("https://api.artic.edu/api/v1/artworks/search") |>
+    httr2::req_url_query(q = query)
+
+  artworks_data <- req |>
+    httr2::req_perform() |>
+    httr2::resp_body_json(simplifyVector = TRUE)
+
+  object_ids <- dplyr::bind_rows(artworks_data$data)$id
+
+  get_artworks(object_ids = object_ids, fields = fields)
+}
