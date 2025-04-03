@@ -2,21 +2,40 @@
 % Please edit documentation in R/artworks.R
 \name{get_artworks}
 \alias{get_artworks}
-\title{Get artworks}
+\title{Retrieve Artwork Data from the Art Institute of Chicago API}
 \usage{
-get_artworks(object_ids = NULL, fields = NULL)
+get_artworks(object_ids, fields = NULL)
 }
 \arguments{
-\item{object_ids}{Artwork object ids based on Artic}
+\item{object_ids}{A vector of artwork object IDs (numeric or character).
+These identifiers correspond to the unique IDs used in the museum's collection.
+Cannot be NULL.}
 
-\item{fields}{Fields to be extracted}
+\item{fields}{An optional vector of field names (character) to return for each artwork.
+If NULL (default), returns all available fields. See API documentation at
+\url{https://api.artic.edu/docs/} for available fields.}
 }
 \value{
-A data frame.
+A tibble (data frame) where each row represents one artwork and columns
+  contain the requested fields. The structure varies depending on the requested fields.
 }
 \description{
-Get artworks
+Fetches artwork information from the Art Institute of Chicago's public API
+using object IDs and optionally specifies which fields to return.
 }
 \examples{
+\dontrun{
+# Get basic information for artwork with ID 4
 get_artworks(4)
+
+# Get multiple artworks with specific fields
+get_artworks(c(27992, 28560), fields = c("title", "artist_display", "date_display"))
+
+# Get all available fields for multiple artworks
+get_artworks(c(16568, 14620, 20684))
+}
+
+}
+\references{
+Art Institute of Chicago API documentation: \url{https://api.artic.edu/docs/}
 }

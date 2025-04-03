@@ -2,18 +2,26 @@
 % Please edit documentation in R/galleries.R
 \name{galleries}
 \alias{galleries}
-\title{Get galleries}
+\title{Retrieve Gallery Information from the Art Institute of Chicago API}
 \usage{
 galleries()
 }
 \value{
-A data frame of galleries
+A tibble (data frame) where each row represents one gallery, containing all
+  available fields provided by the API.
 }
 \description{
-Get galleries
+Fetches a complete list of galleries from the Art Institute of Chicago's public API,
+automatically handling pagination to return all available records. The function
+implements rate limiting to comply with API best practices.
 }
 \examples{
 \dontrun{
-galleries()
+# Get all galleries
+gallery_data <- galleries()
 }
+
+}
+\references{
+Art Institute of Chicago API documentation: \url{https://api.artic.edu/docs}
 }
