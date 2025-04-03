@@ -4,11 +4,14 @@
 \alias{search_artworks}
 \title{Search for Artworks from the Art Institute of Chicago API}
 \usage{
-search_artworks(query, fields = NULL, size = 10)
+search_artworks(query, museum = "artic", fields = NULL, size = 10)
 }
 \arguments{
 \item{query}{A character string containing the search query. Cannot be NULL.
 Spaces will automatically be converted to hyphens.}
+
+\item{museum}{A character string indicating the museum to query. Currently supports
+"artic" (Art Institute of Chicago) and "met" (Metropolitan Museum of Art).}
 
 \item{fields}{An optional vector of field names (character) to return for each artwork.
 If NULL (default), returns all available fields.}

@@ -4,12 +4,15 @@
 \alias{get_artworks}
 \title{Retrieve Artwork Data from the Art Institute of Chicago API}
 \usage{
-get_artworks(object_ids, fields = NULL)
+get_artworks(object_ids, museum = "artic", fields = NULL)
 }
 \arguments{
 \item{object_ids}{A vector of artwork object IDs (numeric or character).
 These identifiers correspond to the unique IDs used in the museum's collection.
 Cannot be NULL.}
+
+\item{museum}{A character string indicating the museum to query. Currently supports
+"artic" (Art Institute of Chicago) and "met" (Metropolitan Museum of Art).}
 
 \item{fields}{An optional vector of field names (character) to return for each artwork.
 If NULL (default), returns all available fields. See API documentation at
