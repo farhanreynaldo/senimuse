@@ -4,13 +4,13 @@ Title: R API wrapper for museum collections
 Version: 0.1.0
 Authors@R: c(
     person(
-      "Farhan", "Hutabarat", "Reynaldo",
+      "Farhan", "Reynaldo Hutabarat",
       email = "farhanreynaldo@gmail.com",
       role = c("aut", "cre")
     )
   )
 Description: An R interface to access and retrieve data from various museum collection APIs. 
-    This package simplifies querying, filtering, and analyzing cultural heritage data
+    This package simplifies querying, filtering, and analyzing cultural heritage data.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
