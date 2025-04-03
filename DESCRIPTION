@@ -18,3 +18,5 @@ RoxygenNote: 7.3.2
 Imports: 
     dplyr,
     httr2
+URL: https://github.com/farhanreynaldo/senimuse
+BugReports: https://github.com/farhanreynaldo/senimuse/issues
