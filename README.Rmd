@@ -19,19 +19,20 @@ knitr::opts_chunk$set(
 [![R-CMD-check](https://github.com/farhanreynaldo/senimuse/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/farhanreynaldo/senimuse/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
-The goal of senimuse is to ...
+The goal of senimuse is to provide an R interface to the museum API, allowing users to easily access and analyze artwork data from the collection. This package simplifies the process of retrieving information about artworks, artists, exhibitions and other museum resources for data analysis, visualization, and research purposes.
 
 ## Installation
 
-You can install the development version of senimuse like so:
+You can install the development version of senimuse from GitHub with:
 
 ``` r
-# FILL THIS IN! HOW CAN PEOPLE INSTALL YOUR DEV PACKAGE?
+library(devtools)
+install_github("farhanreynaldo/senimuse")
 ```
 
 ## Example
 
-This is a basic example which shows you how to solve a common problem:
+Below is an example of how to retrieve artwork information from a museum collection using senimuse:
 
 ```{r example}
 library(senimuse)
