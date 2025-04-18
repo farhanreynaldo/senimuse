@@ -2,7 +2,7 @@
 % Please edit documentation in R/artworks.R
 \name{get_artworks}
 \alias{get_artworks}
-\title{Retrieve Artwork Data from the Art Institute of Chicago API}
+\title{Retrieve Artwork Data from Museum APIs}
 \usage{
 get_artworks(object_ids, museum = "artic", fields = NULL)
 }
@@ -11,34 +11,39 @@ get_artworks(object_ids, museum = "artic", fields = NULL)
 These identifiers correspond to the unique IDs used in the museum's collection.
 Cannot be NULL.}
 
-\item{museum}{A character string indicating the museum to query. Currently supports
-"artic" (Art Institute of Chicago) and "met" (Metropolitan Museum of Art).}
+\item{museum}{A character string indicating the museum to query. Currently supports:
+\itemize{
+  \item "artic" - Art Institute of Chicago
+  \item "met" - Metropolitan Museum of Art
+}}
 
 \item{fields}{An optional vector of field names (character) to return for each artwork.
-If NULL (default), returns all available fields. See API documentation at
-\url{https://api.artic.edu/docs/} for available fields.}
+If NULL (default), returns all available fields.}
 }
 \value{
 A tibble (data frame) where each row represents one artwork and columns
-  contain the requested fields. The structure varies depending on the requested fields.
+  contain the requested fields. The structure varies depending on the requested fields
+  and the museum API.
 }
 \description{
-Fetches artwork information from the Art Institute of Chicago's public API
+Fetches artwork information from various museum public APIs
 using object IDs and optionally specifies which fields to return.
 }
 \examples{
 \dontrun{
-# Get basic information for artwork with ID 4
-get_artworks(4)
+# Get artwork from Art Institute of Chicago
+get_artworks(4, museum = "artic")
+
+# Get artwork from Metropolitan Museum of Art
+get_artworks(436535, museum = "met")
 
 # Get multiple artworks with specific fields
-get_artworks(c(27992, 28560), fields = c("title", "artist_display", "date_display"))
-
-# Get all available fields for multiple artworks
-get_artworks(c(16568, 14620, 20684))
+get_artworks(c(27992, 28560), museum = "artic",
+             fields = c("title", "artist_display", "date_display"))
 }
 
 }
 \references{
-Art Institute of Chicago API documentation: \url{https://api.artic.edu/docs/}
+Art Institute of Chicago API: \url{https://api.artic.edu/docs/}
+Metropolitan Museum of Art API: \url{https://metmuseum.github.io/}
 }
