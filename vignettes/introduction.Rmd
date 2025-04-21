@@ -1,0 +1,107 @@
+---
+title: "introduction"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{introduction}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+# Introduction to senimuse
+
+The `senimuse` package provides straightforward tools to access and search through museum collection data via their public APIs. It currently supports the Art Institute of Chicago (ARTIC) and Metropolitan Museum of Art (MET), allowing R users to incorporate cultural datasets into their research, education, or data visualization projects.
+
+## Basic Usage
+
+The package offers two main functions:
+
+`get_artworks()` - Retrieve specific artwork(s) using object IDs
+`search_artworks()` - Search museum collections by keyword
+Let's explore how to use these functions with examples:
+
+### Retrieving Specific Artworks
+
+When you know the ID of the artwork you want to access, use `get_artworks()`:
+
+```{r}
+library(senimuse)
+
+# Get data for a single artwork from Art Institute of Chicago (default museum)
+artic_artwork <- get_artworks(4)
+print(artic_artwork)
+
+# Get a specific artwork from the Metropolitan Museum of Art
+met_artwork <- get_artworks(436535, museum = "met")
+print(met_artwork)
+```
+
+### Searching for Artworks
+
+To discover artworks based on keywords, use `search_artworks()`:
+
+```{r}
+# Search for artworks related to "sunflowers" in ARTIC
+sunflower_artworks <- search_artworks("sunflowers")
+print(sunflower_artworks)
+
+# Search for works by Monet in the Met collection
+monet_artworks <- search_artworks("monet", museum = "met")
+print(monet_artworks)
+```
+
+### Refining Results
+
+Both functions allow you to specify which fields to return:
+
+```{r}
+# Get specific fields for multiple artworks
+selected_fields <- get_artworks(
+  c(27992, 28560), 
+  museum = "artic",
+  fields = c("title", "artist_display", "date_display")
+)
+print(selected_fields)
+
+# Increase the number of search results
+landscape_artworks <- search_artworks(
+  "landscape", 
+  museum = "met", 
+  size = 25
+)
+```
+
+## Working with Results
+
+The functions return data in tibble (data frame) format, which integrates smoothly with tidyverse operations:
+
+```{r}
+library(dplyr)
+
+# Filter for artworks from a specific period
+impressionist_works <- search_artworks("impressionism", museum = "met") %>%
+  filter(grepl("19th century", date_display))
+
+# Count artworks by artist
+artist_counts <- search_artworks("portrait", size = 30) %>%
+  group_by(artist_display) %>%
+  summarize(count = n()) %>%
+  arrange(desc(count))
+```
+
+## Supported Museums
+
+Currently, `senimuse` supports:
+* Art Institute of Chicago ("artic")
+* Metropolitan Museum of Art ("met")
+
+The package standardizes column names across museum APIs for easier comparison and analysis.
+
+
+
