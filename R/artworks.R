@@ -41,6 +41,33 @@ get_artworks <- function(object_ids, museum = "artic", fields = NULL) {
     stop("`object_ids` cannot be null")
   }
 
+  DEFAULT_COLUMN_NAMES <- c(
+    "id",
+    "title",
+    "artist_display",
+    "date_display",
+    "medium_display",
+    "dimensions"
+  )
+
+  ARTIC_DEFAULT_FIELDS <- c(
+    "id",
+    "title",
+    "artist_display",
+    "date_display",
+    "medium_display",
+    "dimensions"
+  )
+
+  MET_DEFAULT_FIELDS <- c(
+    "objectID",
+    "title",
+    "artistDisplayName",
+    "objectDate",
+    "medium",
+    "dimensions"
+  )
+
   if (museum == "artic") {
     req <- httr2::request("https://api.artic.edu/api/v1/artworks/") |>
       httr2::req_url_query(ids = object_ids, .multi = "comma")
@@ -48,13 +75,20 @@ get_artworks <- function(object_ids, museum = "artic", fields = NULL) {
     if (!is.null(fields)) {
       req <- req |>
         httr2::req_url_query(fields = fields, .multi = "comma")
+    } else {
+      req <- req |>
+        httr2::req_url_query(fields = ARTIC_DEFAULT_FIELDS, .multi = "comma")
     }
 
     artworks_data <- req |>
       httr2::req_perform() |>
       httr2::resp_body_json(simplifyVector = TRUE)
 
-    dplyr::bind_rows(artworks_data$data)
+    dplyr::bind_rows(artworks_data$data) |>
+      dplyr::rename_with(
+        ~ DEFAULT_COLUMN_NAMES[match(., ARTIC_DEFAULT_FIELDS)],
+        dplyr::everything()
+      )
   } else if (museum == "met") {
     if (is.character(object_ids) && length(object_ids) == 1) {
       object_ids <- c(object_ids)
@@ -80,8 +114,16 @@ get_artworks <- function(object_ids, museum = "artic", fields = NULL) {
         results <- lapply(results, function(x) {
           x[intersect(names(x), fields)]
         })
+      } else {
+        results <- lapply(results, function(x) {
+          x[intersect(names(x), MET_DEFAULT_FIELDS)]
+        })
       }
-      return(dplyr::bind_rows(results))
+      dplyr::bind_rows(results) |>
+        dplyr::rename_with(
+          ~ DEFAULT_COLUMN_NAMES[match(., MET_DEFAULT_FIELDS)],
+          dplyr::everything()
+        )
     } else {
       return(dplyr::tibble())
     }
