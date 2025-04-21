@@ -62,12 +62,90 @@
 <div class="section level2">
 <h2 id="example">Example<a class="anchor" aria-label="anchor" href="#example"></a>
 </h2>
-<p>Below is an example of how to retrieve artwork information from a museum collection using senimuse:</p>
+<p>below is a simple example of how to use the <code>senimuse</code> package to search for artworks by Monet in the Art Institute of Chicago museum. The <code><a href="reference/search_artworks.html">search_artworks()</a></code> function allows you to search for artworks based on various criteria, such as artist name, title, and museum.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/farhanreynaldo/senimuse" class="external-link">senimuse</a></span><span class="op">)</span></span>
-<span><span class="fu"><a href="reference/get_artworks.html">get_artworks</a></span><span class="op">(</span><span class="fl">4</span>, fields <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"id"</span>, <span class="st">"title"</span>, <span class="st">"date_start"</span>, <span class="st">"date_end"</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">#&gt;   id          title date_start date_end</span></span>
-<span><span class="co">#&gt; 1  4 Priest and Boy       1865     1880</span></span></code></pre></div>
+<span></span>
+<span><span class="fu"><a href="reference/search_artworks.html">search_artworks</a></span><span class="op">(</span><span class="st">"Monet"</span>, museum <span class="op">=</span> <span class="st">"artic"</span>, size <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "Monet"</span></span>
+<span><span class="co">#&gt;       id                                            title date_display</span></span>
+<span><span class="co">#&gt; 1  14624             Stacks of Wheat (End of Day, Autumn)      1890–91</span></span>
+<span><span class="co">#&gt; 2  16568                                     Water Lilies         1906</span></span>
+<span><span class="co">#&gt; 3  64818                  Stacks of Wheat (End of Summer)      1890–91</span></span>
+<span><span class="co">#&gt; 4  14620                          Cliff Walk at Pourville         1882</span></span>
+<span><span class="co">#&gt; 5  14598                      The Beach at Sainte-Adresse         1867</span></span>
+<span><span class="co">#&gt; 6  16571 Arrival of the Normandy Train, Gare Saint-Lazare         1877</span></span>
+<span><span class="co">#&gt; 7  16564          Branch of the Seine near Giverny (Mist)         1897</span></span>
+<span><span class="co">#&gt; 8  81539             On the Bank of the Seine, Bennecourt         1868</span></span>
+<span><span class="co">#&gt; 9  81537                                       Bordighera         1884</span></span>
+<span><span class="co">#&gt; 10 87088                                  Water Lily Pond         1900</span></span>
+<span><span class="co">#&gt;                      artist_display</span></span>
+<span><span class="co">#&gt; 1  Claude Monet (French, 1840–1926)</span></span>
+<span><span class="co">#&gt; 2  Claude Monet (French, 1840–1926)</span></span>
+<span><span class="co">#&gt; 3  Claude Monet (French, 1840–1926)</span></span>
+<span><span class="co">#&gt; 4  Claude Monet (French, 1840–1926)</span></span>
+<span><span class="co">#&gt; 5  Claude Monet (French, 1840–1926)</span></span>
+<span><span class="co">#&gt; 6  Claude Monet (French, 1840–1926)</span></span>
+<span><span class="co">#&gt; 7  Claude Monet (French, 1840–1926)</span></span>
+<span><span class="co">#&gt; 8  Claude Monet (French, 1840–1926)</span></span>
+<span><span class="co">#&gt; 9  Claude Monet (French, 1840–1926)</span></span>
+<span><span class="co">#&gt; 10 Claude Monet (French, 1840–1926)</span></span>
+<span><span class="co">#&gt;                                                                                             dimensions</span></span>
+<span><span class="co">#&gt; 1  65.8 × 101 cm (27 7/8 × 39 3/4 in.); Framed: 90.9 × 125.5 × 123.2 cm (35 3/4 × 49 3/8 × 48 1/2 in.)</span></span>
+<span><span class="co">#&gt; 2    89.9 × 94.1 cm (35 3/8 × 37 1/16 in.); Framed: 103.2 × 107 × 5.8 cm (40 5/8 × 42 1/8 × 2 1/4 in.)</span></span>
+<span><span class="co">#&gt; 3    60 × 100.5 cm (23 5/8 × 39 9/16 in.); Framed: 75.6 × 116.6 × 7.4 cm (29 3/4 × 45 7/8 × 2 7/8 in.)</span></span>
+<span><span class="co">#&gt; 4      66.5 × 82.3 cm (26 1/8 × 32 7/16 in.); Framed: 88.9 × 104.8 × 10.8 cm (35 × 41 1/4 × 4 1/4 in.)</span></span>
+<span><span class="co">#&gt; 5  75.8 × 102.5 cm (29 13/16 × 40 5/16 in.); Framed: 104.1 × 130.2 × 11.4 cm (41 × 51 1/2 × 4 1/2 in.)</span></span>
+<span><span class="co">#&gt; 6       60.3 × 80.2 cm (23 3/4 × 31 1/2 in.); Framed: 80.7 × 100.4 × 10.2 cm (31 3/4 × 39 1/2 × 4 in.)</span></span>
+<span><span class="co">#&gt; 7  89.9 × 92.7 cm (35 3/8 × 36 1/2 in.); Framed: 112.4 × 115.6 × 11.5 cm (44 1/4 × 45 1/2 × 4 1/2 in.)</span></span>
+<span><span class="co">#&gt; 8    81.5 × 100.7 cm (32 1/16 × 39 5/8 in.); Framed: 98.5 × 117.8 × 8 cm (38 3/4 × 46 3/8 × 3 1/8 in.)</span></span>
+<span><span class="co">#&gt; 9         65 × 80.8 cm (25 5/8 × 31 13/16 in.); Framed: 80.4 × 96.6 × 8.3 cm (31 5/8 × 38 × 3 1/4 in.)</span></span>
+<span><span class="co">#&gt; 10      89.8 × 101 cm (35 3/8 × 39 3/4 in.); Framed: 112.4 × 122.6 × 10.2 cm (44 1/4 × 48 1/4 × 4 in.)</span></span>
+<span><span class="co">#&gt;    medium_display</span></span>
+<span><span class="co">#&gt; 1   Oil on canvas</span></span>
+<span><span class="co">#&gt; 2   Oil on canvas</span></span>
+<span><span class="co">#&gt; 3   Oil on canvas</span></span>
+<span><span class="co">#&gt; 4   Oil on canvas</span></span>
+<span><span class="co">#&gt; 5   Oil on canvas</span></span>
+<span><span class="co">#&gt; 6   Oil on canvas</span></span>
+<span><span class="co">#&gt; 7   Oil on canvas</span></span>
+<span><span class="co">#&gt; 8   Oil on canvas</span></span>
+<span><span class="co">#&gt; 9   Oil on canvas</span></span>
+<span><span class="co">#&gt; 10  Oil on canvas</span></span></code></pre></div>
+<p>You can also specify the fields you want to retrieve from the API. For example, if you only want to get the artwork ID, title, and artist display name, you can use the <code>fields</code> argument:</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="reference/search_artworks.html">search_artworks</a></span><span class="op">(</span><span class="st">"Monet"</span>, museum <span class="op">=</span> <span class="st">"artic"</span>, fields <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"id"</span>, <span class="st">"title"</span>, <span class="st">"artist_display"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "Monet"</span></span>
+<span><span class="co">#&gt;       id                                            title</span></span>
+<span><span class="co">#&gt; 1  14624             Stacks of Wheat (End of Day, Autumn)</span></span>
+<span><span class="co">#&gt; 2  16568                                     Water Lilies</span></span>
+<span><span class="co">#&gt; 3  64818                  Stacks of Wheat (End of Summer)</span></span>
+<span><span class="co">#&gt; 4  14620                          Cliff Walk at Pourville</span></span>
+<span><span class="co">#&gt; 5  14598                      The Beach at Sainte-Adresse</span></span>
+<span><span class="co">#&gt; 6  16571 Arrival of the Normandy Train, Gare Saint-Lazare</span></span>
+<span><span class="co">#&gt; 7  16564          Branch of the Seine near Giverny (Mist)</span></span>
+<span><span class="co">#&gt; 8  81539             On the Bank of the Seine, Bennecourt</span></span>
+<span><span class="co">#&gt; 9  81537                                       Bordighera</span></span>
+<span><span class="co">#&gt; 10 87088                                  Water Lily Pond</span></span>
+<span><span class="co">#&gt;                      artist_display</span></span>
+<span><span class="co">#&gt; 1  Claude Monet (French, 1840–1926)</span></span>
+<span><span class="co">#&gt; 2  Claude Monet (French, 1840–1926)</span></span>
+<span><span class="co">#&gt; 3  Claude Monet (French, 1840–1926)</span></span>
+<span><span class="co">#&gt; 4  Claude Monet (French, 1840–1926)</span></span>
+<span><span class="co">#&gt; 5  Claude Monet (French, 1840–1926)</span></span>
+<span><span class="co">#&gt; 6  Claude Monet (French, 1840–1926)</span></span>
+<span><span class="co">#&gt; 7  Claude Monet (French, 1840–1926)</span></span>
+<span><span class="co">#&gt; 8  Claude Monet (French, 1840–1926)</span></span>
+<span><span class="co">#&gt; 9  Claude Monet (French, 1840–1926)</span></span>
+<span><span class="co">#&gt; 10 Claude Monet (French, 1840–1926)</span></span></code></pre></div>
+<p>If you know the artwork ID, you can use the <code>get_artwork()</code> function to retrieve detailed information about a specific artwork. For example, to get information about the artwork with ID 28067 from the Metropolitan Museum of Art, you can use the following code:</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">artwork_id</span> <span class="op">&lt;-</span> <span class="fl">437984</span></span>
+<span><span class="fu"><a href="reference/get_artworks.html">get_artworks</a></span><span class="op">(</span><span class="va">artwork_id</span>, museum <span class="op">=</span> <span class="st">"met"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 1 × 6</span></span>
+<span><span class="co">#&gt;   id     title             artist_display date_display medium_display dimensions</span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;  &lt;chr&gt;             &lt;chr&gt;          &lt;chr&gt;        &lt;chr&gt;          &lt;chr&gt;     </span></span>
+<span><span class="co">#&gt; 1 437984 La Berceuse (Wom… Vincent van G… 1889         Oil on canvas  36 1/2 × …</span></span></code></pre></div>
 </div>
 </div>
   </main><aside class="col-md-3"><div class="links">
