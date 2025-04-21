@@ -32,9 +32,23 @@ install_github("farhanreynaldo/senimuse")
 
 ## Example
 
-Below is an example of how to retrieve artwork information from a museum collection using senimuse:
+below is a simple example of how to use the `senimuse` package to search for artworks by Monet in the Art Institute of Chicago museum. The `search_artworks()` function allows you to search for artworks based on various criteria, such as artist name, title, and museum.
 
-```{r example}
+```{r basic-example}
 library(senimuse)
-get_artworks(4, fields = c("id", "title", "date_start", "date_end"))
+
+search_artworks("Monet", museum = "artic", size = 5)
+```
+
+You can also specify the fields you want to retrieve from the API. For example, if you only want to get the artwork ID, title, and artist display name, you can use the `fields` argument:
+
+```{r fields-example}
+search_artworks("Monet", museum = "artic", fields = c("id", "title", "artist_display"))
+```
+
+If you know the artwork ID, you can use the `get_artwork()` function to retrieve detailed information about a specific artwork. For example, to get information about the artwork with ID 28067 from the Metropolitan Museum of Art, you can use the following code:
+
+```{r get-artwork-example}
+artwork_id <- 437984
+get_artworks(artwork_id, museum = "met")
 ```
